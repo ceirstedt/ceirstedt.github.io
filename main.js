@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let playerHand = document.querySelector("#player");
   let player = new Player();
+
   let dealerHand = document.querySelector("#dealer");
   let dealer = new Dealer();
 
@@ -39,16 +40,47 @@ document.addEventListener("DOMContentLoaded", function () {
       playGame();
     } else if (game_state == "play") {
       dealer.dealPlayer(player.hand);
+      dealer.dealPlayer(dealer.hand);
+      player.showCards(playerHand);
+      dealer.showCards(dealerHand);
+
+      processGame();
+    }
+  });
+
+  standButton.addEventListener("click", function (e) {
+    if (game_state == "play") {
+      dealer.dealPlayer(dealer.hand);
+      dealer.showCards(dealerHand);
+
+      processGame();
     }
   });
 
   startGame();
+
+  function processGame() {
+    if (sumCards(player.hand) > 21) {
+      game_state = "start";
+      player.funds -= player.bet;
+      startGame();
+    }
+
+    fundsLabel.innerHTML = "Funds: $" + player.funds + " | Bet: $" + player.bet;
+  }
 
   function startGame() {
     hitButton.innerHTML = "Deal 'em";
     standButton.style.display = "none";
     dealer.fillDeck();
     dealer.shuffleDeck();
+
+    for (let i = 0; i < betButtons.length; i += 2) {
+      betButtons[i].style.display = "inline";
+    }
+
+    player.hand = [];
+    dealer.hand = [];
 
     dealerHand.innerHTML =
       '<h3 class="hand-label">Dealer hand</h3>' +
@@ -77,5 +109,13 @@ document.addEventListener("DOMContentLoaded", function () {
     player.showCards(playerHand);
     dealer.dealPlayer(dealer.hand);
     dealer.showCards(dealerHand);
+  }
+
+  function sumCards(hand) {
+    let sum = 0;
+    for (let i = 0; i < hand.length; i++) {
+      sum += hand[i].value;
+    }
+    return sum;
   }
 });
