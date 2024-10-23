@@ -3,16 +3,17 @@
     <head>
         <meta charset="utf-8" />
         <title>Blackjack</title>
-        <link href="style.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
         <script type="module" src="main.js"></script>
     </head>
     <body>
-        <div class="playingCards simpleCards">
+        <div class="game-over-text"><h1 id="game-over-text"></h1></div>
+        <div class="playingCards fourColors">
             <div id="dealer" class="hand"></div>
             <div id="player" class="hand"></div>
         </div>
         <div class="cards-value">
-            <label id="cards-vale-label"></label>
+            <label id="cards-value-label"></label>
         </div>
         <div class="buttons">
             <button id="hit-button" class="button-23" role="button">Hit</button>

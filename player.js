@@ -23,18 +23,16 @@ class Player {
         "</div>";
     }
     playerHand.innerHTML +=
-      '<h3 class="hand-label">Total Hand Value: ' +
-      sumCards(this.hand) +
-      "</h3>";
+      '<h3 class="hand-label">Total Hand Value: ' + this.sumCards() + "</h3>";
   }
-}
 
-function sumCards(hand) {
-  let sum = 0;
-  for (let i = 0; i < hand.length; i++) {
-    sum += hand[i].value;
+  sumCards() {
+    let sum = 0;
+    for (let i = 0; i < this.hand.length; i++) {
+      sum += this.hand[i].value;
+    }
+    return sum;
   }
-  return sum;
 }
 
 export default Player;

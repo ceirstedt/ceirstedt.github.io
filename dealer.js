@@ -61,20 +61,23 @@ class Dealer {
         this.hand[i].suit +
         ";</span>" +
         "</div>";
+      if (this.hand.length == 1) {
+        dealerHand.innerHTML += '<div class="card back">*</div>';
+      }
     }
     dealerHand.innerHTML +=
       '<h3 class="hand-label">Total Hand Value: ' +
-      sumCards(this.hand) +
+      this.sumCards(this.hand) +
       "</h3>";
   }
-}
 
-function sumCards(hand) {
-  let sum = 0;
-  for (let i = 0; i < hand.length; i++) {
-    sum += hand[i].value;
+  sumCards() {
+    let sum = 0;
+    for (let i = 0; i < this.hand.length; i++) {
+      sum += this.hand[i].value;
+    }
+    return sum;
   }
-  return sum;
 }
 
 export default Dealer;

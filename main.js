@@ -1,121 +1,193 @@
 import Dealer from "./dealer.js";
 import Player from "./player.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  let game_state = "start";
+class BlackjackGame {
+  constructor() {
+    this.initializeGame();
+    this.setupEventListeners();
+    this.startGame();
+  }
 
-  let playerHand = document.querySelector("#player");
-  let player = new Player();
+  initializeGame() {
+    this.gameState = "start";
+    this.player = new Player();
+    this.dealer = new Dealer();
 
-  let dealerHand = document.querySelector("#dealer");
-  let dealer = new Dealer();
+    // DOM Elements
+    this.elements = {
+      playerHand: document.querySelector("#player"),
+      dealerHand: document.querySelector("#dealer"),
+      fundsLabel: document.querySelector("#funds-label"),
+      gameOverText: document.querySelector("#game-over-text"),
+      hitButton: document.querySelector("#hit-button"),
+      standButton: document.querySelector("#stand-button"),
+    };
 
-  let fundsLabel = document.querySelector("#funds-label");
+    // Betting buttons configuration
+    this.betButtons = [
+      { element: document.querySelector("#sub-five"), value: -5 },
+      { element: document.querySelector("#sub-one"), value: -1 },
+      { element: document.querySelector("#add-one"), value: 1 },
+      { element: document.querySelector("#add-five"), value: 5 },
+    ];
+  }
 
-  let hitButton = document.querySelector("#hit-button");
-  let standButton = document.querySelector("#stand-button");
+  setupEventListeners() {
+    this.setupBettingButtons();
+    this.setupGameButtons();
+  }
 
-  let subOne = document.querySelector("#sub-one");
-  let subFive = document.querySelector("#sub-five");
-  let addOne = document.querySelector("#add-one");
-  let addFive = document.querySelector("#add-five");
-  let betButtons = [subFive, -5, subOne, -1, addOne, 1, addFive, 5];
-
-  // add button click functions to all bet buttons
-  for (let i = 0; i < betButtons.length; i += 2) {
-    betButtons[i].addEventListener("click", function (e) {
-      if (
-        player.bet + betButtons[i + 1] >= 1 &&
-        player.bet + betButtons[i + 1] <= player.funds
-      ) {
-        player.bet += betButtons[i + 1];
-      }
-      fundsLabel.innerHTML =
-        "Funds: $" + player.funds + " | Bet: $" + player.bet;
+  setupBettingButtons() {
+    this.betButtons.forEach(({ element, value }) => {
+      element.addEventListener("click", () => this.handleBet(value));
     });
   }
 
-  hitButton.addEventListener("click", function (e) {
-    if (game_state == "start") {
-      playGame();
-    } else if (game_state == "play") {
-      dealer.dealPlayer(player.hand);
-      dealer.dealPlayer(dealer.hand);
-      player.showCards(playerHand);
-      dealer.showCards(dealerHand);
-
-      processGame();
-    }
-  });
-
-  standButton.addEventListener("click", function (e) {
-    if (game_state == "play") {
-      dealer.dealPlayer(dealer.hand);
-      dealer.showCards(dealerHand);
-
-      processGame();
-    }
-  });
-
-  startGame();
-
-  function processGame() {
-    if (sumCards(player.hand) > 21) {
-      game_state = "start";
-      player.funds -= player.bet;
-      startGame();
-    }
-
-    fundsLabel.innerHTML = "Funds: $" + player.funds + " | Bet: $" + player.bet;
+  setupGameButtons() {
+    this.elements.hitButton.addEventListener("click", () =>
+      this.handleHitButton(),
+    );
+    this.elements.standButton.addEventListener("click", () =>
+      this.handleStandButton(),
+    );
   }
 
-  function startGame() {
-    hitButton.innerHTML = "Deal 'em";
-    standButton.style.display = "none";
-    dealer.fillDeck();
-    dealer.shuffleDeck();
-
-    for (let i = 0; i < betButtons.length; i += 2) {
-      betButtons[i].style.display = "inline";
+  handleBet(value) {
+    const newBet = this.player.bet + value;
+    if (newBet >= 1 && newBet <= this.player.funds) {
+      this.player.bet = newBet;
+      this.updateFundsDisplay();
     }
-
-    player.hand = [];
-    dealer.hand = [];
-
-    dealerHand.innerHTML =
-      '<h3 class="hand-label">Dealer hand</h3>' +
-      '<div class="card back">*</div>' +
-      '<div class="card back">*</div>';
-
-    playerHand.innerHTML =
-      '<h3 class="hand-label">Your hand</h3>' +
-      '<div class="card back">*</div>' +
-      '<div class="card back">*</div>';
-
-    fundsLabel.innerHTML = "Funds: $" + player.funds + " | Bet: $" + player.bet;
   }
 
-  function playGame() {
-    hitButton.innerHTML = "Hit";
-    standButton.style.display = "inline";
-    game_state = "play";
-
-    for (let i = 0; i < betButtons.length; i += 2) {
-      betButtons[i].style.display = "none";
+  handleHitButton() {
+    switch (this.gameState) {
+      case "start":
+        this.playGame();
+        break;
+      case "play":
+        this.gameLogic("hit");
+        break;
+      case "win":
+      case "lose":
+        this.gameState = "start";
+        this.startGame();
+        break;
     }
-
-    dealer.dealPlayer(player.hand);
-    dealer.dealPlayer(player.hand);
-    player.showCards(playerHand);
-    dealer.dealPlayer(dealer.hand);
-    dealer.showCards(dealerHand);
   }
 
-  function sumCards(hand) {
-    let sum = 0;
-    for (let i = 0; i < hand.length; i++) {
-      sum += hand[i].value;
+  handleStandButton() {
+    if (this.gameState === "play") {
+      this.gameLogic("stand");
     }
-    return sum;
   }
-});
+
+  gameLogic(action) {
+    this.checkGameStatus();
+
+    if (action === "hit") {
+      this.handleHit();
+    } else {
+      this.handleStand();
+    }
+
+    this.updateFundsDisplay();
+  }
+
+  handleHit() {
+    this.dealer.dealPlayer(this.player.hand);
+    this.player.showCards(this.elements.playerHand);
+    this.checkGameStatus();
+  }
+
+  handleStand() {
+    while (this.dealer.sumCards() <= 14) {
+      this.dealer.dealPlayer(this.dealer.hand);
+      this.dealer.showCards(this.elements.dealerHand);
+    }
+    this.determineWinner();
+  }
+
+  checkGameStatus() {
+    if (this.player.sumCards() > 21 || this.dealer.sumCards() === 21) {
+      this.endGame("lose");
+    } else if (this.player.sumCards() === 21 || this.dealer.sumCards() > 21) {
+      this.endGame("win");
+    }
+  }
+
+  determineWinner() {
+    if (this.dealer.sumCards() > 21) {
+      this.endGame("win");
+    } else if (21 - this.dealer.sumCards() <= 21 - this.player.sumCards()) {
+      this.endGame("lose");
+    } else {
+      this.endGame("win");
+    }
+  }
+
+  endGame(result) {
+    this.gameState = result;
+    this.player.funds += result === "win" ? this.player.bet : -this.player.bet;
+    this.elements.standButton.style.display = "none";
+    this.elements.gameOverText.innerHTML =
+      result === "win" ? "You Win!" : "You Lose!";
+    this.elements.hitButton.innerHTML = "Play Again";
+  }
+
+  updateFundsDisplay() {
+    this.elements.fundsLabel.innerHTML = `Funds: $${this.player.funds} | Bet: $${this.player.bet}`;
+  }
+
+  startGame() {
+    this.resetGameState();
+    this.setupInitialDisplay();
+    this.updateFundsDisplay();
+  }
+
+  resetGameState() {
+    this.elements.gameOverText.innerHTML = "";
+    this.elements.hitButton.innerHTML = "Deal 'em";
+    this.elements.standButton.style.display = "none";
+    this.dealer.fillDeck();
+    [...Array(3)].forEach(() => this.dealer.shuffleDeck());
+    this.player.hand = [];
+    this.dealer.hand = [];
+  }
+
+  setupInitialDisplay() {
+    this.betButtons.forEach(({ element }) => {
+      element.style.display = "inline";
+    });
+
+    const initialHandHTML =
+      '<h3 class="hand-label">%LABEL%</h3><div class="card back">*</div><div class="card back">*</div>';
+    this.elements.dealerHand.innerHTML = initialHandHTML.replace(
+      "%LABEL%",
+      "Dealer hand",
+    );
+    this.elements.playerHand.innerHTML = initialHandHTML.replace(
+      "%LABEL%",
+      "Your hand",
+    );
+  }
+
+  playGame() {
+    this.gameState = "play";
+    this.elements.hitButton.innerHTML = "Hit";
+    this.elements.standButton.style.display = "inline";
+    this.betButtons.forEach(({ element }) => {
+      element.style.display = "none";
+    });
+
+    // Deal initial cards
+    [...Array(2)].forEach(() => this.dealer.dealPlayer(this.player.hand));
+    this.player.showCards(this.elements.playerHand);
+    this.dealer.dealPlayer(this.dealer.hand);
+    this.dealer.showCards(this.elements.dealerHand);
+
+    this.checkGameStatus();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => new BlackjackGame());

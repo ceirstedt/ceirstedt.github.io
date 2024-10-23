@@ -149,11 +149,18 @@
     font-size: 24px;
 }
 
+.game-over-text {
+    /* margin-inline: auto; */
+    /* width: auto; */
+    align-content: center;
+    text-align-last: center;
+}
+
 /* suit colours
 ********************************************************************/
 
 .playingCards .card.diams {
-    color: #f00 !important;
+    color: #ffa500 !important;
 }
 .playingCards.fourColours .card.diams {
     color: #00f !important;
@@ -162,7 +169,7 @@
     color: #f60 !important;
 }
 .playingCards .card.hearts {
-    color: #f00 !important;
+    color: #ff0000 !important;
 }
 .playingCards .card.spades {
     color: #000 !important;
