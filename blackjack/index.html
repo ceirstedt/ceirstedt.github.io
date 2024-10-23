@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=yes">
+        <title>Blackjack</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="module" src="main.js"></script>
+    </head>
+    <body>
+        <div class="game-over-text"><h1 id="game-over-text"></h1></div>
+        <div class="playingCards fourColors">
+            <div id="dealer" class="hand"></div>
+            <div id="player" class="hand"></div>
+        </div>
+        <div class="cards-value">
+            <label id="cards-value-label"></label>
+        </div>
+        <div class="buttons">
+            <button id="hit-button" class="button-23" role="button">Hit</button>
+            <button id="stand-button" class="button-23" role="button">
+                Stand
+            </button>
+        </div>
+        <div class="money">
+            <label id="funds-label" class="funds"></label>
+        </div>
+        <div class="buttons">
+            <button id="sub-five" class="button-23" role="button">-5</button>
+            <button id="sub-one" class="button-23" role="button">-1</button>
+            <button id="add-one" class="button-23" role="button">+1</button>
+            <button id="add-five" class="button-23" role="button">+5</button>
+        </div>
+    </body>
+</html>
