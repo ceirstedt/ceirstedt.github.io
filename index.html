@@ -1,25 +1,77 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=yes">
-        <title>Cole Eirstedt</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/blackjack/style.css" />
-        <link rel="stylesheet" type="text/css" href="/style.css" />
-        <script type="module" src="main.js"></script>
-    </head>
-    <body>
-      <header><h1>Cole Eirstedt</h1></header>
-      <div class="container links">
-        <div class="row">
-          <div class="col">
-            <a href="blackjack/index.html"><img src="assets/blackjack-logo.png" class="img-thumbnail" alt="Clickable blackjack game logo"></a>
-          </div>
-          <div class="col">
-            <a href="wordle/wordle.html"><img src="assets/wordle-logo.png" class="img-thumbnail" alt="Clickable blackjack game logo"></a>
-          </div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title>Cole Eirstedt</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/blackjack/style.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script type="module" src="main.js"></script>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Cole Eirstedt</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row text-center mb-5">
+            <div class="col">
+                <h1 class="display-4 fw-bold">Welcome to My Portfolio</h1>
+                <p class="lead text-muted">Check out my projects below</p>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Blackjack Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-effect">
+                    <a href="blackjack/index.html" class="text-decoration-none">
+                        <img src="assets/blackjack-logo.png" class="card-img-top" alt="Blackjack game logo">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">Blackjack Game</h5>
+                            <p class="card-text text-muted">Try your luck at this classic casino game</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Wordle Card -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-effect">
+                    <a href="wordle/wordle.html" class="text-decoration-none">
+                        <img src="assets/wordle-logo.png" class="card-img-top" alt="Wordle game logo">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">Wordle Game</h5>
+                            <p class="card-text text-muted">Test your word-guessing skills</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-    </body>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2024 Cole Eirstedt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <style>
+        .hover-effect {
+            transition: transform 0.3s ease;
+        }
+        .hover-effect:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</body>
 </html>
