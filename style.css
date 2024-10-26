@@ -1,0 +1,11 @@
+header {
+    width: 100%;
+    background-color: #3b5e94;
+    box-shadow: 10px 5px;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.links {
+    margin-top: 10%;
+}
