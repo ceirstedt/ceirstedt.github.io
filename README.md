@@ -5,19 +5,15 @@
 <!-- ABOUT Me -->
 ## About Me
 
-I'm Cole Eirstedt. This is my dev portfolio page.
+Hello my name is Cole Eirstedt, and this is my dev portfolio page.
 
-Experience:
+Professional Experience:
 * none
 
-skills:
-* hello world in several languages
-* 
+Programming Skills:
+* can write 'hello world' program in several languages
+* can make pong and almost tetris (90% there)
+* linked list
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-
