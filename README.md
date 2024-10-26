@@ -7,8 +7,10 @@
 
 Hello my name is Cole Eirstedt, and this is my dev portfolio page.
 
+
 Professional Experience:
 * none
+
 
 Programming Skills:
 * can write 'hello world' program in several languages
