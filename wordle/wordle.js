@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let correct_word = "";
 
+  let game_state = "play";
+
   fetch("./wordlist.json")
     .then((response) => response.json())
     .then((data) => {
@@ -15,11 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching JSON file:", error);
     });
 
-  let rows = [];
-  let row_count = 0;
-
-  let game_state = "play";
-
   const alphabet = Array.from(Array(26)).map((e, i) =>
     String.fromCharCode(i + 97),
   );
@@ -28,12 +25,16 @@ document.addEventListener("DOMContentLoaded", function () {
     text.innerHTML += "<p>It was " + word + "!</p>";
     text.innerHTML += "<p>You won in " + num + "!</p>";
   }
-
+  
   function lose(word) {
     text.innerHTML += "<p>Nope!";
     text.innerHTML += "The correct word was " + word + "!</p>";
     text.style.color = "#FFC300";
   }
+
+  let rows = [];
+  let row_count = 0;
+  let max_rows = 6;
 
   // create initial empty grid
   for (let i = 0; i < 6; i++) {
