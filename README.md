@@ -6,16 +6,7 @@
 ## About Me
 
 Hello my name is Cole Eirstedt, and this is my dev portfolio page.
-
-
-Professional Experience:
-* none
-
-
-Programming Skills:
-* can write 'hello world' program in several languages
-* can make pong and almost tetris (90% there)
-* linked list
+I'm currently a second year CS student interested in backend/embedded work.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
