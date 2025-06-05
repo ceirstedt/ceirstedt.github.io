@@ -22,7 +22,14 @@
   </head>
 
   <body class="bg-dark">
-
+    
+    <div class="stars"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    
     <div id="textbox" style="text-align:center; margin: 25%;"></div>
 
     <!-- Bootstrap JS -->
@@ -31,36 +38,5 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-
-    <style>
-      html, body { display: grid }
-      html { height: 100% }
-      body { background: #222 }
-      
-      .textbox {
-      	place-self: center;
-      	background: linear-gradient(90deg, #00f, #0ff, #00f) -100%/ 200%;
-      	/* being excessively careful with compat, 
-      	 * though this has been supported unprefixed and 
-      	 * in the shorthand across major browsers for a while */
-      	-webkit-background-clip: text;
-      	        background-clip: text;
-      	/* use color, don't use -webkit-text-fill-color anymore, 
-      	 * was meant to solve a problem we haven't had in years */
-      	color: transparent;
-      	font: 900 clamp(2em, 10vw, 10em) exo, sans-serif;
-      	animation: shimmer 2s linear infinite
-      }
-      
-      @keyframes shimmer { to { background-position: 100% } }
-
-      
-      .hover-effect {
-        transition: transform 0.3s ease;
-      }
-      .hover-effect:hover {
-        transform: translateY(-5px);
-      }
-    </style>
   </body>
 </html>
