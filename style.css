@@ -102,7 +102,7 @@ body {
 
 @keyframes shoot {
   0% {
-    transform: translateX(0) translateY(0) rotate(25deg);
+    transform: translateX(120) translateY(0) rotate(25deg);
     opacity: 1;
   }
   100% {
