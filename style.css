@@ -74,19 +74,19 @@ body {
 
 .shooting-star:nth-child(1) {
   top: 20%;
-  left: -100px;
+  left: +100px;
   animation-delay: 0s;
 }
 
 .shooting-star:nth-child(2) {
   top: 35%;
-  left: -100px;
+  left: +100px;
   animation-delay: 1s;
 }
 
 .shooting-star:nth-child(3) {
   top: 50%;
-  left: -100px;
+  left: +100px;
   animation-delay: 2s;
 }
 
